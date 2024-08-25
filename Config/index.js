@@ -12,3 +12,4 @@ export const banner11 = '/11.png';
 export const banner12 = '/12.jpg';
 export const API_URL = process.env.NEXT_PUBLIC_API_URL;
 export const PLACEHOLDER = '/notfound.png'
+export const LOGO = '/logo.svg'

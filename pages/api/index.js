@@ -87,3 +87,50 @@ query MyQuery {
   const res = await request(API_URL, query);
   return res;
 }
+export const getCart = async () => {
+  const query = gql`
+query MyQuery {
+  userCarts {
+    currency
+    price
+    productDescription
+    productImage
+    productName
+    quantity
+    id
+  }
+}
+`
+  const res = await request(API_URL, query);
+  return res;
+}
+export const addToCart = async (data = {}) => {
+  const query = gql`
+mutation AddToCart {
+  createUserCart(
+    data: {productName: "${data.productName}", price: ${data.price}, productImage: "${data.productImage}", productDescription: "${data.productDescription}",currency:"${data.currency}",quantity:${data.quantity}}
+  ) {
+    id
+  }
+  publishManyUserCarts(to: PUBLISHED) {
+    count
+  }
+}
+`
+  const res = await request(API_URL, query);
+  return res;
+}
+export const removeCart = async (productId) => {
+  const query = gql`
+mutation MyMutation {
+  deleteUserCart(where: {id: "${productId}"}) {
+    id
+  }
+  publishManyUserCarts(to: PUBLISHED) {
+    count
+  }
+}
+`
+  const res = await request(API_URL, query);
+  return res;
+}

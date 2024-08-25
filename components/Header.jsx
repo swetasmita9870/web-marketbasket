@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { FaBars, FaTimes, FaShoppingCart } from 'react-icons/fa';
+import { LOGO } from '@/Config';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -14,7 +15,12 @@ const Header = () => {
       <div className="container">
         <div className="logo">
           <Link href="/">
-            <a>Logo</a>
+            <a>
+              <img
+              src={LOGO}
+              width="250"
+              />
+            </a>
           </Link>
         </div>
         <nav className={`nav ${isMenuOpen ? 'open' : ''}`}>

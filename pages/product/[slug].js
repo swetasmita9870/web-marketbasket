@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { getProduct } from '../api';
+import { addToCart, getProduct } from '../api';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
@@ -71,6 +71,24 @@ const ProductDetail = ({ productname }) => {
 
   const discountPercentage = calculateDiscountPercentage(product.price, product.discountedPrice);
 
+  const cartProduct = async () => {
+    let payload = {
+      'productName': product?.name,
+      'price': product?.discountedPrice?.toFixed(2),
+      'productImage': product?.productImage?.[0]?.url,
+      'productDescription': product?.description,
+      'currency': product?.currency,
+      'quantity': 1
+    }
+    console.log(payload, "payload")
+    // return
+    try {
+      const data = await addToCart(payload);
+      console.log(data, "ggggggggggggggggggggggg")
+    } catch (error) {
+      setError(error.message);
+    }
+  }
   return (
     <>
       <Header />
@@ -122,7 +140,7 @@ const ProductDetail = ({ productname }) => {
             <div className="countdown-timer">
               {product.offerEnds ? `Offer ends in: ${countdown}` : 'No active offers'}
             </div>
-            <button className="add-to-cart-button mb-3">
+            <button onClick={cartProduct} className="add-to-cart-button mb-3">
               Add to Cart
             </button>
           </div>
